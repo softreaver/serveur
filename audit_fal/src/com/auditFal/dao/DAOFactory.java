@@ -21,7 +21,7 @@ public abstract class DAOFactory {
         this.password = password;
 	}
 	
-	public abstract Connection getConnection() throws SQLException;
+	public abstract Connection getConnection() throws DAOFactoryException;
 	
 	// Getters for all DAOs instances
 	public abstract BuildingDAO getBuildingDAO();

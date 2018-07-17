@@ -49,9 +49,13 @@ public class PostgresDAOFactory extends DAOFactory {
     
 	}
 
-	public Connection getConnection() throws SQLException {
+	public Connection getConnection() throws DAOFactoryException {
 		
-		return DriverManager.getConnection( url, username, password );
+		try {
+			return DriverManager.getConnection( url, username, password );
+		} catch (SQLException e) {
+			throw new DAOFactoryException(e);
+		}
 	}
 	
 	
