@@ -1,9 +1,8 @@
 package com.auditFal.beans;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class WorkStation {
@@ -11,7 +10,6 @@ public class WorkStation {
 	private String name;
 	private String lowerName;
 	private Boolean active;
-	private ArrayList<Long> dependencies;
 	
 	public Long getId() {
 		return id;
@@ -37,14 +35,7 @@ public class WorkStation {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-	public ArrayList<Long> getDependencies() {
-		return dependencies;
-	}
-	public void setDependencies(ArrayList<Long> dependencies) {
-		this.dependencies = dependencies;
-	}
-	
-	@SuppressWarnings("unchecked")
+
 	public static WorkStation parse(JSONObject jsonObject) {
 		WorkStation workStation = new WorkStation();
 		
@@ -53,14 +44,16 @@ public class WorkStation {
 		workStation.setLowerName( (String) jsonObject.get("lowerName") );
 		workStation.setActive( (Boolean) jsonObject.get("active") );
 		
-		JSONArray JSONDependencies = new JSONArray();
-		ArrayList<Long> dependencies = (JSONArray) jsonObject.get("dependencies");
+		return workStation;
+	}
+	
+	public static WorkStation parseResultSet(ResultSet data) throws SQLException {
+		WorkStation workStation = new WorkStation();
 		
-		Iterator<Long> iterator = JSONDependencies.iterator();
-		while (iterator.hasNext()) {
-			dependencies.add(iterator.next());
-		}
-		workStation.setDependencies(dependencies);
+		workStation.setId(data.getLong("id"));
+		workStation.setName(data.getString("name"));
+		workStation.setLowerName(data.getString("lowername"));
+		workStation.setActive(data.getBoolean("active"));
 		
 		return workStation;
 	}
