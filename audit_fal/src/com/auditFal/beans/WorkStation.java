@@ -57,5 +57,17 @@ public class WorkStation {
 		
 		return workStation;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONObject toJsonObject(WorkStation workStation) {
+		JSONObject jsonObject = new JSONObject();
+		
+		jsonObject.put("id", workStation.getId());
+		jsonObject.put("name", workStation.getName());
+		jsonObject.put("lowerName", workStation.getLowerName());
+		jsonObject.put("active", workStation.getActive());
+		
+		return jsonObject;
+	}
 }
 

@@ -57,4 +57,16 @@ public class EntitledCompany {
 		
 		return entitledCompany;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONObject toJsonObject(EntitledCompany entitledCompany) {
+		JSONObject jsonObject = new JSONObject();
+		
+		jsonObject.put("id", entitledCompany.getId());
+		jsonObject.put("name", entitledCompany.getName());
+		jsonObject.put("lowerName", entitledCompany.getLowerName());
+		jsonObject.put("active", entitledCompany.getActive());
+		
+		return jsonObject;
+	}
 }

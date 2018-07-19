@@ -17,6 +17,7 @@ public class PostgresBuildingDAO extends BuildingDAO {
 	private static final String SQL_BUILDINGS_WORKSTATIONS_DELETE 	= "DELETE FROM buildings_workstations WHERE id_buildings = ? AND id_workstations = ?";
 	private static final String SQL_BUILDINGS_WORKSTATIONS_CREATE 	= "INSERT INTO buildings_workstations (id_buildings, id_workstations) VALUES (?, ?)";
 	private static final String SQL_BUILDINGS_WORKSTATIONS_FIND 	= "SELECT * FROM buildings_workstations WHERE id_buildings = ?";
+	private static final String SQL_GET_ALL							= "SELECT * FROM buildings";
 
 	@Override
 	public Long create(Connection connection, Building building) throws DAOException {
@@ -165,6 +166,29 @@ public class PostgresBuildingDAO extends BuildingDAO {
 			DAOUtils.closeStatement(preparedStatement);
 		}
 		
+	}
+
+	@Override
+	public ArrayList<Building> getAll(Connection connection) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		ArrayList<Building> buildings = new ArrayList<>();
+		
+		try {
+			preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_GET_ALL, false);
+			result = preparedStatement.executeQuery();
+			
+			while(result.next()) {
+				buildings.add(Building.parseResultSet(result));
+			}
+			
+			return buildings;
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}finally {
+			DAOUtils.closeResultSet(result);
+			DAOUtils.closeStatement(preparedStatement);
+		}
 	}
 
 }

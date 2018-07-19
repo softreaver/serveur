@@ -57,4 +57,16 @@ public class Activity {
 		
 		return activity;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONObject toJsonObject(Activity activity) {
+		JSONObject jsonObject = new JSONObject();
+		
+		jsonObject.put("id", activity.getId());
+		jsonObject.put("name", activity.getName());
+		jsonObject.put("lowerName", activity.getLowerName());
+		jsonObject.put("active", activity.getActive());
+		
+		return jsonObject;
+	}
 }

@@ -4,14 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.auditFal.beans.EntitledCompany;
 
 public class PostgresEntitledCompanyDAO extends EntitledCompanyDAO{
-	private static final String SQL_CREATE = "INSERT INTO entitledcompanies (name, lowerName, active) VALUES (?, ?, ?)";
-	private static final String SQL_FIND_BY_LOWER_NAME = "SELECT * FROM entitledcompanies WHERE lowername = ?";
-	private static final String SQL_UPDATE = "UPDATE entitledcompanies SET name = ?, lowerName = ?, active = ? WHERE id = ?";
-	private static final String SQL_FIND_BY_ID = "SELECT * FROM entitledcompanies WHERE id = ?";
+	private static final String SQL_CREATE 				= "INSERT INTO entitledcompanies (name, lowerName, active) VALUES (?, ?, ?)";
+	private static final String SQL_FIND_BY_LOWER_NAME 	= "SELECT * FROM entitledcompanies WHERE lowername = ?";
+	private static final String SQL_UPDATE 				= "UPDATE entitledcompanies SET name = ?, lowerName = ?, active = ? WHERE id = ?";
+	private static final String SQL_FIND_BY_ID 			= "SELECT * FROM entitledcompanies WHERE id = ?";
+	private static final String SQL_GET_ALL 			= "SELECT * FROM entitledcompanies";
 
 	@Override
 	public Long create(Connection connection, EntitledCompany entitledCompany) throws DAOException {
@@ -108,6 +110,29 @@ public class PostgresEntitledCompanyDAO extends EntitledCompanyDAO{
 		} catch (Exception e) {
 			throw new DAOException(e);
 		} finally {
+			DAOUtils.closeStatement(preparedStatement);
+		}
+	}
+
+	@Override
+	public ArrayList<EntitledCompany> getAll(Connection connection) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		ArrayList<EntitledCompany> entitledCompanies = new ArrayList<>();
+		
+		try {
+			preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_GET_ALL, false);
+			result = preparedStatement.executeQuery();
+			
+			while(result.next()) {
+				entitledCompanies.add(EntitledCompany.parseResultSet(result));
+			}
+			
+			return entitledCompanies;
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}finally {
+			DAOUtils.closeResultSet(result);
 			DAOUtils.closeStatement(preparedStatement);
 		}
 	}

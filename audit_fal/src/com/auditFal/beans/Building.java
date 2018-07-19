@@ -77,4 +77,16 @@ public class Building {
 		
 		return building;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONObject toJsonObject(Building building) {
+		JSONObject jsonObject = new JSONObject();
+		
+		jsonObject.put("id", building.getId());
+		jsonObject.put("name", building.getName());
+		jsonObject.put("lowerName", building.getLowerName());
+		jsonObject.put("active", building.getActive());
+		
+		return jsonObject;
+	}
 }

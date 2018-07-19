@@ -4,15 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.auditFal.beans.WorkStation;
 
 public class PostgresWorkStationDAO extends WorkStationDAO {
 	
-	private static final String SQL_CREATE = "INSERT INTO workstations (name, lowerName, active) VALUES (?, ?, ?)";
-	private static final String SQL_FIND_BY_LOWER_NAME = "SELECT * FROM workstations WHERE lowername = ?";
-	private static final String SQL_UPDATE = "UPDATE workstations SET name = ?, lowerName = ?, active = ? WHERE id = ?";
-	private static final String SQL_FIND_BY_ID = "SELECT * FROM workstations WHERE id = ?";
+	private static final String SQL_CREATE 				= "INSERT INTO workstations (name, lowerName, active) VALUES (?, ?, ?)";
+	private static final String SQL_FIND_BY_LOWER_NAME 	= "SELECT * FROM workstations WHERE lowername = ?";
+	private static final String SQL_UPDATE 				= "UPDATE workstations SET name = ?, lowerName = ?, active = ? WHERE id = ?";
+	private static final String SQL_FIND_BY_ID 			= "SELECT * FROM workstations WHERE id = ?";
+	private static final String SQL_GET_ALL				= "SELECT * FROM workstations";
 
 	@Override
 	public Long create(Connection connection, WorkStation workStation) throws DAOException {
@@ -109,6 +111,29 @@ public class PostgresWorkStationDAO extends WorkStationDAO {
 		} catch (Exception e) {
 			throw new DAOException(e);
 		} finally {
+			DAOUtils.closeStatement(preparedStatement);
+		}
+	}
+
+	@Override
+	public ArrayList<WorkStation> getAll(Connection connection) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		ArrayList<WorkStation> workStations = new ArrayList<>();
+		
+		try {
+			preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_GET_ALL, false);
+			result = preparedStatement.executeQuery();
+			
+			while(result.next()) {
+				workStations.add(WorkStation.parseResultSet(result));
+			}
+			
+			return workStations;
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}finally {
+			DAOUtils.closeResultSet(result);
 			DAOUtils.closeStatement(preparedStatement);
 		}
 	}
