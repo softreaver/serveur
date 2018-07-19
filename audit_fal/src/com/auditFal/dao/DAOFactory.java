@@ -1,7 +1,6 @@
 package com.auditFal.dao;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public abstract class DAOFactory {
 	
@@ -28,9 +27,10 @@ public abstract class DAOFactory {
 	public abstract PostDAO getPostDAO();
 	public abstract WorkStationDAO getWorkStationDAO();
 	public abstract ControlPointDAO getControlPointDAO();
-	public abstract EntityDAO getEntotyDAO();
+	public abstract EntityDAO getEntityDAO();
 	public abstract ActivityDAO getActivityDAO();
 	public abstract VisitDAO getVisitDAO();
 	public abstract WorkSituationDAO getWorkSituationDAO();
 	public abstract ActionDAO getActionDAO();
+	public abstract EntitledCompanyDAO getEntitledCompanyDAO();
 }

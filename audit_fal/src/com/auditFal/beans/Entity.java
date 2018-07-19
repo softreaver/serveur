@@ -3,8 +3,6 @@ package com.auditFal.beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.json.simple.JSONObject;
-
 public class Entity {
 	private Long id;
 	private String name;
@@ -34,17 +32,6 @@ public class Entity {
 	}
 	public void setActive(Boolean active) {
 		this.active = active;
-	}
-	
-	public static Entity parse(JSONObject jsonObject) {
-		Entity entity = new Entity();
-		
-		entity.setId( (Long) jsonObject.get("id") );
-		entity.setName( (String) jsonObject.get("name") );
-		entity.setLowerName( (String) jsonObject.get("lowerName") );
-		entity.setActive( (Boolean) jsonObject.get("active") );
-		
-		return entity;
 	}
 	
 	public static Entity parseResultSet(ResultSet data) throws SQLException {

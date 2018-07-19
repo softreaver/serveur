@@ -14,9 +14,9 @@ public class PostgresBuildingDAO extends BuildingDAO {
 	private static final String SQL_FIND_BY_LOWER_NAME 				= "SELECT * FROM buildings WHERE lowername = ?";
 	private static final String SQL_UPDATE 							= "UPDATE buildings SET name = ?, lowerName = ?, active = ? WHERE id = ?";
 	private static final String SQL_FIND_BY_ID 						= "SELECT * FROM buildings WHERE id = ?";
-	private static final String SQL_BUILDINGS_WORKSTATIONS_DELETE 	= "DELETE FROM posts_buildings WHERE id_posts = ? AND id_buildings = ?";
-	private static final String SQL_BUILDINGS_WORKSTATIONS_CREATE 	= "INSERT INTO posts_buildings (id_posts, id_buildings) VALUES (?, ?)";
-	private static final String SQL_BUILDINGS_WORKSTATIONS_FIND 	= "SELECT * FROM posts_buildings WHERE id_posts = ?";
+	private static final String SQL_BUILDINGS_WORKSTATIONS_DELETE 	= "DELETE FROM buildings_workstations WHERE id_buildings = ? AND id_workstations = ?";
+	private static final String SQL_BUILDINGS_WORKSTATIONS_CREATE 	= "INSERT INTO buildings_workstations (id_buildings, id_workstations) VALUES (?, ?)";
+	private static final String SQL_BUILDINGS_WORKSTATIONS_FIND 	= "SELECT * FROM buildings_workstations WHERE id_buildings = ?";
 
 	@Override
 	public Long create(Connection connection, Building building) throws DAOException {
@@ -136,7 +136,7 @@ public class PostgresBuildingDAO extends BuildingDAO {
 			ArrayList<Long> junctionsToKeep = new ArrayList<>();
 			
 			while(result.next()) {
-				Long id = result.getLong("id_buildings");
+				Long id = result.getLong("id_workstations");
 				if(dependencies.contains(id)) {
 					junctionsToKeep.add(id);
 				} else {

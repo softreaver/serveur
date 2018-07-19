@@ -61,14 +61,12 @@ public class PostgresDAOFactory extends DAOFactory {
 	
 	@Override
 	public BuildingDAO getBuildingDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PostgresBuildingDAO();
 	}
 
 	@Override
 	public PostDAO getPostDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PostgresPostDAO();
 	}
 
 	@Override
@@ -78,38 +76,37 @@ public class PostgresDAOFactory extends DAOFactory {
 
 	@Override
 	public ControlPointDAO getControlPointDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PostgresControlPointDAO();
 	}
 
 	@Override
-	public EntityDAO getEntotyDAO() {
-		// TODO Auto-generated method stub
-		return null;
+	public EntityDAO getEntityDAO() {
+		return new PostgresEntityDAO();
 	}
 
 	@Override
 	public ActivityDAO getActivityDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PostgresActivityDAO();
 	}
 
 	@Override
 	public VisitDAO getVisitDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PostgresVisitDAO();
 	}
 
 	@Override
 	public WorkSituationDAO getWorkSituationDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PostgresWorkSituationDAO();
 	}
 
 	@Override
 	public ActionDAO getActionDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PostgresActionDAO();
+	}
+
+	@Override
+	public EntitledCompanyDAO getEntitledCompanyDAO() {
+		return new PostgresEntitledCompanyDAO();
 	}
 
 }
