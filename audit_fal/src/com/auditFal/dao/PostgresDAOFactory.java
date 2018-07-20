@@ -32,8 +32,8 @@ public class PostgresDAOFactory extends DAOFactory {
             properties.load( fichierProperties );
             url = properties.getProperty( PROPERTY_URL );
             driver = properties.getProperty( PROPERTY_DRIVER );
-            nomUtilisateur = properties.getProperty( PROPERTY_NOM_UTILISATEUR );
             motDePasse = properties.getProperty( PROPERTY_MOT_DE_PASSE );
+            nomUtilisateur = properties.getProperty( PROPERTY_NOM_UTILISATEUR );
         } catch ( IOException e ) {
             throw new DAOConfigurationException( "Impossible de charger le fichier properties " + FICHIER_PROPERTIES, e );
         }

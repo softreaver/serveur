@@ -352,6 +352,36 @@ public class AppFrontControler extends HttpServlet {
 					}
 					
 					break;
+			
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+|||||||||||||||||||                 SAVE VISITS                ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+				case "saveVisits":
+					ArrayList<WorkStation> visits = new ArrayList<>();
+					
+					try {
+						
+						WorkStationForm workStationForm = new WorkStationForm(connection, workStationDAO);
+						allWorkStations = workStationForm.getWorkStations();
+						
+						/* construct the response body (format : [{<Item>},{<Item2>},...]) */
+						JSONArray jsonResp = new JSONArray();
+						
+						for(WorkStation workStation : allWorkStations) {
+							jsonResp.add(WorkStation.toJsonObject(workStation));
+						}
+						
+						/* write the response into the response body */
+						writer.print(jsonResp.toJSONString());
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+						writer.print(e.getMessage());
+						resp.setStatus(500);
+					}
+					
+					break;
 
 /*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 |||||||||||||||||||                  BAD REQUESTS                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
