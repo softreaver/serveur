@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Visit {
@@ -91,7 +92,7 @@ public class Visit {
 		visit.setPiNumber( (Integer) jsonObject.get("piNumber") );
 		visit.setIsPiDigital( (Boolean) jsonObject.get("isPiDigital") );
 		
-		
+		visit.setControlPointsList(ControlPoint.parseToArrayList( (JSONArray) jsonObject.get("checkedControlPointsList")) );
 		
 		return visit;
 	}
