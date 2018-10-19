@@ -16,7 +16,7 @@ public class Visit {
 	private Integer piNumber;
 	private Boolean isPiDigital;
 	private ArrayList<String> photosUrls;
-	private ArrayList<ControlPoint> controlPointsList;
+	private ArrayList<VisitControlPoint> controlPointsList;
 	private Long idUser;
 	
 	
@@ -68,10 +68,10 @@ public class Visit {
 	public void setPhotosUrls(ArrayList<String> photosUrls) {
 		this.photosUrls = photosUrls;
 	}
-	public ArrayList<ControlPoint> getControlPointsList() {
+	public ArrayList<VisitControlPoint> getControlPointsList() {
 		return controlPointsList;
 	}
-	public void setControlPointsList(ArrayList<ControlPoint> controlPointsList) {
+	public void setControlPointsList(ArrayList<VisitControlPoint> controlPointsList) {
 		this.controlPointsList = controlPointsList;
 	}
 	public Long getIdUser() {
@@ -92,7 +92,7 @@ public class Visit {
 		visit.setPiNumber( (Integer) jsonObject.get("piNumber") );
 		visit.setIsPiDigital( (Boolean) jsonObject.get("isPiDigital") );
 		
-		visit.setControlPointsList(ControlPoint.parseToArrayList( (JSONArray) jsonObject.get("checkedControlPointsList")) );
+		visit.setControlPointsList(VisitControlPoint.parseToArrayList( (JSONArray) jsonObject.get("checkedControlPointsList")) );
 		
 		return visit;
 	}
