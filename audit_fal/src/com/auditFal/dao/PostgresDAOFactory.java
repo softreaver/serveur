@@ -9,42 +9,62 @@ import java.util.Properties;
 
 public class PostgresDAOFactory extends DAOFactory {
 
+    // @formatter:off
+    private static PostgresDAOFactory instance 		= null;
+
+    private BuildingDAO buildingDAO 			= null;
+    private PostDAO postDAO 				= null;
+    private WorkSituationDAO workSituationDAO 		= null;
+    private ControlPointDAO controlPointDAO 		= null;
+    private EntityDAO entityDAO 			= null;
+    private ActivityDAO activityDAO 			= null;
+    private VisitDAO visitDAO 				= null;
+    private WorkStationDAO workStationDAO 		= null;
+    private ActionDAO actionDAO 			= null;
+    private EntitledCompanyDAO entitledCompanyDAO 	= null;
+    // @formatter:on
+
     private PostgresDAOFactory(String url, String username, String password) {
 	super(url, username, password);
     }
 
     public static DAOFactory getInstance() throws DAOConfigurationException {
-	Properties properties = new Properties();
+	if (PostgresDAOFactory.instance == null) {
+	    Properties properties = new Properties();
 
-	String url;
-	String driver;
-	String nomUtilisateur;
-	String motDePasse;
+	    String url;
+	    String driver;
+	    String nomUtilisateur;
+	    String motDePasse;
 
-	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-	InputStream fichierProperties = classLoader.getResourceAsStream(FICHIER_PROPERTIES);
+	    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+	    InputStream fichierProperties = classLoader.getResourceAsStream(FICHIER_PROPERTIES);
 
-	if (fichierProperties == null)
-	    throw new DAOConfigurationException("Le fichier properties " + FICHIER_PROPERTIES + " est introuvable.");
+	    if (fichierProperties == null)
+		throw new DAOConfigurationException(
+			"Le fichier properties " + FICHIER_PROPERTIES + " est introuvable.");
 
-	try {
-	    properties.load(fichierProperties);
-	    url = properties.getProperty(PROPERTY_URL);
-	    driver = properties.getProperty(PROPERTY_DRIVER);
-	    motDePasse = properties.getProperty(PROPERTY_MOT_DE_PASSE);
-	    nomUtilisateur = properties.getProperty(PROPERTY_NOM_UTILISATEUR);
-	} catch (IOException e) {
-	    throw new DAOConfigurationException("Impossible de charger le fichier properties " + FICHIER_PROPERTIES, e);
+	    try {
+		properties.load(fichierProperties);
+		url = properties.getProperty(PROPERTY_URL);
+		driver = properties.getProperty(PROPERTY_DRIVER);
+		motDePasse = properties.getProperty(PROPERTY_MOT_DE_PASSE);
+		nomUtilisateur = properties.getProperty(PROPERTY_NOM_UTILISATEUR);
+	    } catch (IOException e) {
+		throw new DAOConfigurationException("Impossible de charger le fichier properties " + FICHIER_PROPERTIES,
+			e);
+	    }
+
+	    try {
+		Class.forName(driver);
+	    } catch (ClassNotFoundException e) {
+		throw new DAOConfigurationException("Le driver est introuvable dans le classpath.", e);
+	    }
+
+	    PostgresDAOFactory.instance = new PostgresDAOFactory(url, nomUtilisateur, motDePasse);
 	}
 
-	try {
-	    Class.forName(driver);
-	} catch (ClassNotFoundException e) {
-	    throw new DAOConfigurationException("Le driver est introuvable dans le classpath.", e);
-	}
-
-	PostgresDAOFactory instance = new PostgresDAOFactory(url, nomUtilisateur, motDePasse);
-	return instance;
+	return PostgresDAOFactory.instance;
 
     }
 
@@ -60,52 +80,82 @@ public class PostgresDAOFactory extends DAOFactory {
 
     @Override
     public BuildingDAO getBuildingDAO() {
-	return new PostgresBuildingDAO();
+	if (buildingDAO == null)
+	    buildingDAO = new PostgresBuildingDAO();
+
+	return buildingDAO;
     }
 
     @Override
     public PostDAO getPostDAO() {
-	return new PostgresPostDAO();
+	if (postDAO == null)
+	    postDAO = new PostgresPostDAO();
+
+	return postDAO;
     }
 
     @Override
     public WorkStationDAO getWorkStationDAO() {
-	return new PostgresWorkStationDAO();
+	if (workStationDAO == null)
+	    workStationDAO = new PostgresWorkStationDAO();
+
+	return workStationDAO;
     }
 
     @Override
     public ControlPointDAO getControlPointDAO() {
-	return new PostgresControlPointDAO();
+	if (controlPointDAO == null)
+	    controlPointDAO = new PostgresControlPointDAO();
+
+	return controlPointDAO;
     }
 
     @Override
     public EntityDAO getEntityDAO() {
-	return new PostgresEntityDAO();
+	if (entityDAO == null)
+	    entityDAO = new PostgresEntityDAO();
+
+	return entityDAO;
     }
 
     @Override
     public ActivityDAO getActivityDAO() {
-	return new PostgresActivityDAO();
+	if (activityDAO == null)
+	    activityDAO = new PostgresActivityDAO();
+
+	return activityDAO;
     }
 
     @Override
     public VisitDAO getVisitDAO() {
-	return new PostgresVisitDAO();
+	if (visitDAO == null)
+	    visitDAO = new PostgresVisitDAO();
+
+	return visitDAO;
     }
 
     @Override
     public WorkSituationDAO getWorkSituationDAO() {
-	return new PostgresWorkSituationDAO();
+	if (workSituationDAO == null)
+	    workSituationDAO = new PostgresWorkSituationDAO();
+
+	return workSituationDAO;
     }
 
     @Override
     public ActionDAO getActionDAO() {
-	return new PostgresActionDAO();
+	if (actionDAO == null)
+	    actionDAO = new PostgresActionDAO();
+
+	return actionDAO;
     }
 
     @Override
     public EntitledCompanyDAO getEntitledCompanyDAO() {
-	return new PostgresEntitledCompanyDAO();
+	if (entitledCompanyDAO == null)
+	    entitledCompanyDAO = new PostgresEntitledCompanyDAO();
+
+	return entitledCompanyDAO;
     }
 
 }

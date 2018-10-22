@@ -8,28 +8,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 
-import com.auditFal.beans.ControlPoint;
-import com.auditFal.dao.ControlPointDAO;
-import com.auditFal.forms.ControlPointForm;
+import com.auditFal.beans.Entity;
+import com.auditFal.dao.EntityDAO;
+import com.auditFal.forms.EntityForm;
 
-public class GetControlPointsControler {
+public class GetEntitiesControler {
     @SuppressWarnings("unchecked")
-    public static String getControlPoints(HttpServletResponse resp, Connection connection,
-	    ControlPointDAO controlPointDAO) {
-	ArrayList<ControlPoint> allControlPoints;
+    public static String getEntities(HttpServletResponse resp, Connection connection, EntityDAO entityDAO) {
+	ArrayList<Entity> allEntities;
 
 	try {
 	    PrintWriter writer = resp.getWriter();
-	    ControlPointForm controlPointForm = new ControlPointForm(connection, controlPointDAO);
-	    allControlPoints = controlPointForm.getControlPoints();
+	    EntityForm entityForm = new EntityForm(connection, entityDAO);
+	    allEntities = entityForm.getEntities();
 
 	    /*
 	     * construct the response body (format : [{<Item>},{<Item2>},...])
 	     */
 	    JSONArray jsonResp = new JSONArray();
 
-	    for (ControlPoint controlPoint : allControlPoints)
-		jsonResp.add(ControlPoint.toJsonObject(controlPoint));
+	    for (Entity entity : allEntities)
+		jsonResp.add(Entity.toJsonObject(entity));
 
 	    /* write the response into the response body */
 	    writer.print(jsonResp.toJSONString());

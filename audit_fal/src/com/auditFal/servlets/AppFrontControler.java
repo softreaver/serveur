@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.auditFal.controlers.GetActivitiesControler;
 import com.auditFal.controlers.GetBuildingsControler;
+import com.auditFal.controlers.GetControlPointsControler;
+import com.auditFal.controlers.GetEntitiesControler;
 import com.auditFal.controlers.GetEntitledCompaniesControler;
 import com.auditFal.controlers.GetPostsControler;
 import com.auditFal.controlers.GetWorksituationsControler;
@@ -23,9 +25,11 @@ import com.auditFal.controlers.SaveVisitsControler;
 import com.auditFal.controlers.SaveWorkstationsControler;
 import com.auditFal.dao.ActivityDAO;
 import com.auditFal.dao.BuildingDAO;
+import com.auditFal.dao.ControlPointDAO;
 import com.auditFal.dao.DAOFactory;
 import com.auditFal.dao.DAOInitialization;
 import com.auditFal.dao.EntitledCompanyDAO;
+import com.auditFal.dao.EntityDAO;
 import com.auditFal.dao.PostDAO;
 import com.auditFal.dao.VisitDAO;
 import com.auditFal.dao.WorkSituationDAO;
@@ -39,9 +43,11 @@ public class AppFrontControler extends HttpServlet {
 
     private EntitledCompanyDAO entitledCompanyDAO;
     private WorkSituationDAO workSituationDAO;
+    private ControlPointDAO controlPointDAO;
     private WorkStationDAO workStationDAO;
     private BuildingDAO buildingDAO;
     private ActivityDAO activityDAO;
+    private EntityDAO entityDAO;
     private VisitDAO visitDAO;
     private PostDAO postDAO;
 
@@ -49,9 +55,11 @@ public class AppFrontControler extends HttpServlet {
     public void init() throws ServletException {
 	entitledCompanyDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getEntitledCompanyDAO();
 	workSituationDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getWorkSituationDAO();
+	controlPointDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getControlPointDAO();
 	workStationDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getWorkStationDAO();
 	buildingDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getBuildingDAO();
 	activityDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getActivityDAO();
+	entityDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getEntityDAO();
 	visitDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getVisitDAO();
 	postDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getPostDAO();
     }
@@ -163,6 +171,18 @@ public class AppFrontControler extends HttpServlet {
 	/*
 	 * /////////////////////////////////////////////////////////////////////
 	 * ////////////////////////////////////////////////////////////
+	 * ||||||||||||||||||| GET ENTITIES
+	 * |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	 */
+	case "getEntities":
+	    response = GetEntitiesControler.getEntities(resp, connection, entityDAO);
+	    break;
+
+	/*
+	 * /////////////////////////////////////////////////////////////////////
+	 * ////////////////////////////////////////////////////////////
 	 * ||||||||||||||||||| GET WORK SITUATIONS
 	 * |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -175,13 +195,13 @@ public class AppFrontControler extends HttpServlet {
 	/*
 	 * /////////////////////////////////////////////////////////////////////
 	 * ////////////////////////////////////////////////////////////
-	 * ||||||||||||||||||| GET ENTITLED COMPANIES
+	 * ||||||||||||||||||| GET CONTROL POINTS
 	 * |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 */
 	case "getControlPoints":
-	    response = GetControlPo.getEntitledCompanies(resp, connection, entitledCompanyDAO);
+	    response = GetControlPointsControler.getControlPoints(resp, connection, controlPointDAO);
 	    break;
 
 	/*
