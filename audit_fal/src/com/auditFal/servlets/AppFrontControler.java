@@ -23,6 +23,7 @@ import com.auditFal.controlers.SaveEntitledCompaniesControler;
 import com.auditFal.controlers.SavePostsControler;
 import com.auditFal.controlers.SaveVisitsControler;
 import com.auditFal.controlers.SaveWorkstationsControler;
+import com.auditFal.dao.ActionDAO;
 import com.auditFal.dao.ActivityDAO;
 import com.auditFal.dao.BuildingDAO;
 import com.auditFal.dao.ControlPointDAO;
@@ -31,6 +32,7 @@ import com.auditFal.dao.DAOInitialization;
 import com.auditFal.dao.EntitledCompanyDAO;
 import com.auditFal.dao.EntityDAO;
 import com.auditFal.dao.PostDAO;
+import com.auditFal.dao.VisitControlPointDAO;
 import com.auditFal.dao.VisitDAO;
 import com.auditFal.dao.WorkSituationDAO;
 import com.auditFal.dao.WorkStationDAO;
@@ -41,24 +43,29 @@ public class AppFrontControler extends HttpServlet {
 
     public static final String CONF_DAO_FACTORY = DAOInitialization.ATT_DAO_FACTORY;
 
+    private VisitControlPointDAO visitControlPointDAO;
     private EntitledCompanyDAO entitledCompanyDAO;
     private WorkSituationDAO workSituationDAO;
     private ControlPointDAO controlPointDAO;
     private WorkStationDAO workStationDAO;
     private BuildingDAO buildingDAO;
     private ActivityDAO activityDAO;
+    private ActionDAO actionDAO;
     private EntityDAO entityDAO;
     private VisitDAO visitDAO;
     private PostDAO postDAO;
 
     @Override
     public void init() throws ServletException {
+	visitControlPointDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY))
+		.getVisitControlPointDAO();
 	entitledCompanyDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getEntitledCompanyDAO();
 	workSituationDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getWorkSituationDAO();
 	controlPointDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getControlPointDAO();
 	workStationDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getWorkStationDAO();
 	buildingDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getBuildingDAO();
 	activityDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getActivityDAO();
+	actionDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getActionDAO();
 	entityDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getEntityDAO();
 	visitDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getVisitDAO();
 	postDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getPostDAO();
@@ -85,11 +92,11 @@ public class AppFrontControler extends HttpServlet {
 	switch (requestName) {
 
 	/*
-	 * /////////////////////////////////////////////////////////////////////
+	 * ////////////////////////////////////////////////////////////
 	 * ////////////////////////////////////////////////////////////
 	 * ||||||||||||||||||| SAVE WORKSTATIONS
-	 * |||||||||||||||||||||||||||||||||||||||||||||||||||||||
-	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	 * ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 */
 	case "saveWorkStations":
@@ -248,8 +255,8 @@ public class AppFrontControler extends HttpServlet {
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 */
-	case "saveVisits":
-	    response = SaveVisitsControler.saveVisits(body, resp, connection, visitDAO);
+	case "saveVisit":
+	    SaveVisitsControler.saveVisit(body, resp, connection, visitDAO, visitControlPointDAO, actionDAO);
 	    break;
 
 	/*

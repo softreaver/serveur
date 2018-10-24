@@ -10,7 +10,6 @@ import org.json.simple.JSONObject;
 public class Visit {
     private Long number;
     private String title;
-    private Integer workType;
     private String workingCompany;
     private Integer dateOfVisit;
     private Integer piNumber;
@@ -80,14 +79,6 @@ public class Visit {
 	this.idActivity = idActivity;
     }
 
-    public Integer getWorkType() {
-	return workType;
-    }
-
-    public void setWorkType(Integer workType) {
-	this.workType = workType;
-    }
-
     public String getWorkingCompany() {
 	return workingCompany;
     }
@@ -149,7 +140,6 @@ public class Visit {
 
 	visit.setNumber((Long) jsonObject.get("number"));
 	visit.setTitle((String) jsonObject.get("title"));
-	visit.setWorkType((Integer) jsonObject.get("workType"));
 	visit.setWorkingCompany((String) jsonObject.get("workingCompany"));
 	visit.setDateOfVisit((Integer) jsonObject.get("dateOfVisit"));
 	visit.setPiNumber((Integer) jsonObject.get("piNumber"));

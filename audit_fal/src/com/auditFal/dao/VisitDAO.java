@@ -10,6 +10,9 @@ public abstract class VisitDAO {
 
     public abstract ArrayList<Visit> getAll(Connection connection) throws DAOException;
 
+    // Here visit's id is visit's number
+    public abstract Visit findById(Connection connection, Long visitId) throws DAOException;
+
     public abstract void update(Connection connection, Visit visit) throws DAOException;
 
     public abstract ArrayList<Visit> findByDate(Connection connection, Long fromDate, Long toDate) throws DAOException;

@@ -22,6 +22,7 @@ public class PostgresDAOFactory extends DAOFactory {
     private WorkStationDAO workStationDAO 		= null;
     private ActionDAO actionDAO 			= null;
     private EntitledCompanyDAO entitledCompanyDAO 	= null;
+    private VisitControlPointDAO visitControlPointDAO	= null;
     // @formatter:on
 
     private PostgresDAOFactory(String url, String username, String password) {
@@ -156,6 +157,14 @@ public class PostgresDAOFactory extends DAOFactory {
 	    entitledCompanyDAO = new PostgresEntitledCompanyDAO();
 
 	return entitledCompanyDAO;
+    }
+
+    @Override
+    public VisitControlPointDAO getVisitControlPointDAO() {
+	if (visitControlPointDAO == null)
+	    visitControlPointDAO = new PostgresVisitControlPointDAO();
+
+	return visitControlPointDAO;
     }
 
 }

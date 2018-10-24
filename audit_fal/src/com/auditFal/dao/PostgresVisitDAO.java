@@ -10,12 +10,15 @@ import com.auditFal.beans.Visit;
 
 public class PostgresVisitDAO extends VisitDAO {
 
-    private static final String SQL_CREATE = "INSERT INTO visits VALUES (default, null, ?, ?, ?, ?, null, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE visits SET title = ?, worktype = ?, workingcompany = ?, dateofvisit = ?, id_entitledcompanies = ?, id_buildings = ?, id_activities = ?, id_workstations = ?, id_posts = ? WHERE id = ?";
-    private static final String SQL_GET_ALL = "SELECT * FROM visits";
-    private static final String SQL_FROM_DATE = "SELECT * FROM visits WHERE dateofvisit >= ?";
-    private static final String SQL_UP_TO_DATE = "SELECT * FROM visits WHERE dateofvisit <= ?";
-    private static final String SQL_BETWEEN_DATES = "SELECT * FROM visits WHERE dateofvisit >= ? AND dateofvisit <= ?";
+    // @formatter:off
+    private static final String SQL_CREATE 		= "INSERT INTO visits VALUES (default, null, ?, ?, ?, ?, null, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE 		= "UPDATE visits SET title = ?, worktype = ?, workingcompany = ?, dateofvisit = ?, id_entitledcompanies = ?, id_buildings = ?, id_activities = ?, id_workstations = ?, id_posts = ? WHERE id = ?";
+    private static final String SQL_GET_ALL 		= "SELECT * FROM visits";
+    private static final String SQL_FIND_BY_ID		= "SELECT * FROM visits WHERE id = ?";
+    private static final String SQL_FROM_DATE 		= "SELECT * FROM visits WHERE dateofvisit >= ?";
+    private static final String SQL_UP_TO_DATE 		= "SELECT * FROM visits WHERE dateofvisit <= ?";
+    private static final String SQL_BETWEEN_DATES 	= "SELECT * FROM visits WHERE dateofvisit >= ? AND dateofvisit <= ?";
+    // @formatter:on
 
     @Override
     public Long create(Connection connection, Visit visit) throws DAOException {
@@ -174,6 +177,26 @@ public class PostgresVisitDAO extends VisitDAO {
 
 	    return visits;
 	} catch (Exception e) {
+	    throw new DAOException(e);
+	} finally {
+	    DAOUtils.closeResultSet(result);
+	    DAOUtils.closeStatement(preparedStatement);
+	}
+    }
+
+    @Override
+    public Visit findById(Connection connection, Long visitId) throws DAOException {
+	PreparedStatement preparedStatement = null;
+	ResultSet result = null;
+
+	try {
+	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_FIND_BY_ID, false, visitId);
+	    result = preparedStatement.executeQuery();
+	    if (result.next())
+		return Visit.parseResultSet(result);
+	    else
+		return null;
+	} catch (SQLException e) {
 	    throw new DAOException(e);
 	} finally {
 	    DAOUtils.closeResultSet(result);
