@@ -10,9 +10,10 @@ import org.json.simple.JSONObject;
 public class Visit {
     private Long number;
     private String title;
+    private Long workType;
     private String workingCompany;
-    private Integer dateOfVisit;
-    private Integer piNumber;
+    private Long dateOfVisit;
+    private Long piNumber;
     private Boolean isPiDigital;
     private ArrayList<String> photosUrls;
     private ArrayList<VisitControlPoint> controlPointsList;
@@ -22,6 +23,14 @@ public class Visit {
     private Long idWorkStation;
     private Long idPost;
     private Long idActivity;
+
+    public Long getWorkType() {
+	return workType;
+    }
+
+    public void setWorkType(Long workType) {
+	this.workType = workType;
+    }
 
     public Long getNumber() {
 	return number;
@@ -87,19 +96,19 @@ public class Visit {
 	this.workingCompany = workingCompany;
     }
 
-    public Integer getDateOfVisit() {
+    public Long getDateOfVisit() {
 	return dateOfVisit;
     }
 
-    public void setDateOfVisit(Integer dateOfVisit) {
+    public void setDateOfVisit(Long dateOfVisit) {
 	this.dateOfVisit = dateOfVisit;
     }
 
-    public Integer getPiNumber() {
+    public Long getPiNumber() {
 	return piNumber;
     }
 
-    public void setPiNumber(Integer piNumber) {
+    public void setPiNumber(Long piNumber) {
 	this.piNumber = piNumber;
     }
 
@@ -141,8 +150,9 @@ public class Visit {
 	visit.setNumber((Long) jsonObject.get("number"));
 	visit.setTitle((String) jsonObject.get("title"));
 	visit.setWorkingCompany((String) jsonObject.get("workingCompany"));
-	visit.setDateOfVisit((Integer) jsonObject.get("dateOfVisit"));
-	visit.setPiNumber((Integer) jsonObject.get("piNumber"));
+	visit.setWorkType((Long) jsonObject.get("workType"));
+	visit.setDateOfVisit((Long) jsonObject.get("dateOfVisit"));
+	visit.setPiNumber((Long) jsonObject.get("piNumber"));
 	visit.setIsPiDigital((Boolean) jsonObject.get("isPiDigital"));
 	visit.setIdEntitledCompany((Long) jsonObject.get("idEntitledCompany"));
 	visit.setIdBuilding((Long) jsonObject.get("idBuilding"));
@@ -163,10 +173,10 @@ public class Visit {
 
 	visit.setNumber(data.getLong("number"));
 	visit.setTitle(data.getString("title"));
-	visit.setWorkType(data.getInt("worktype"));
 	visit.setWorkingCompany(data.getString("workingcompany"));
-	visit.setDateOfVisit(data.getInt("dateofvisit"));
-	visit.setPiNumber(data.getInt("pinumber"));
+	visit.setWorkType(data.getLong("worktype"));
+	visit.setDateOfVisit(data.getLong("dateofvisit"));
+	visit.setPiNumber(data.getLong("pinumber"));
 	visit.setIsPiDigital(data.getBoolean("ispidigital"));
 
 	return visit;
@@ -178,11 +188,11 @@ public class Visit {
 
 	jsonObject.put("number", visit.getNumber());
 	jsonObject.put("title", visit.getTitle());
-	jsonObject.put("workType", visit.getWorkType());
 	jsonObject.put("workingCompany", visit.getWorkingCompany());
 	jsonObject.put("dateOfVisit", visit.getDateOfVisit());
 	jsonObject.put("piNumber", visit.getPiNumber());
 	jsonObject.put("isPiDigital", visit.getIsPiDigital());
+	jsonObject.put("workType", visit.getWorkType());
 
 	return jsonObject;
     }

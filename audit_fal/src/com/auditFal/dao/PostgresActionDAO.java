@@ -22,8 +22,8 @@ public class PostgresActionDAO extends ActionDAO {
 
 	try {
 	    String todo = action.getToDo();
-	    Integer realclosingdate = action.getRealClosingDate();
-	    Integer wantedclosingdate = action.getWantedClosingDate();
+	    Long realclosingdate = action.getRealClosingDate();
+	    Long wantedclosingdate = action.getWantedClosingDate();
 	    Long id_entities = action.getIdResponsableEntity();
 
 	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_CREATE, false, todo, realclosingdate,
@@ -47,8 +47,8 @@ public class PostgresActionDAO extends ActionDAO {
 
 	try {
 	    String todo = action.getToDo();
-	    Integer realclosingdate = action.getRealClosingDate();
-	    Integer wantedclosingdate = action.getWantedClosingDate();
+	    Long realclosingdate = action.getRealClosingDate();
+	    Long wantedclosingdate = action.getWantedClosingDate();
 	    Long id_entities = action.getIdResponsableEntity();
 
 	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_CREATE, false, todo, realclosingdate,

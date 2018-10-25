@@ -12,7 +12,7 @@ public class VisitControlPoint {
     private Long idVisits;
     private Long idControlPoints;
     private Long idEntities;
-    private Integer conformity;
+    private Long conformity;
     private String commentary;
     private Action action = null;
 
@@ -48,11 +48,11 @@ public class VisitControlPoint {
 	this.action = action;
     }
 
-    public Integer getConformity() {
+    public Long getConformity() {
 	return conformity;
     }
 
-    public void setConformity(Integer conformity) {
+    public void setConformity(Long conformity) {
 	this.conformity = conformity;
     }
 
@@ -80,7 +80,7 @@ public class VisitControlPoint {
 
 	controlPoint.setIdControlPoints((Long) jsonObject.get("id"));
 	controlPoint.setIdEntities((Long) jsonObject.get("idEntity"));
-	controlPoint.setConformity((Integer) jsonObject.get("conformity"));
+	controlPoint.setConformity((Long) jsonObject.get("conformity"));
 	controlPoint.setCommentary((String) jsonObject.get("commentary"));
 	controlPoint.setAction(Action.parse((JSONObject) jsonObject.get("action")));
 
@@ -93,7 +93,7 @@ public class VisitControlPoint {
 	visitControlPoint.setIdVisits(data.getLong("id_visits"));
 	visitControlPoint.setIdControlPoints(data.getLong("id_controlpoints"));
 	visitControlPoint.setIdEntities(data.getLong("id_entities"));
-	visitControlPoint.setConformity(data.getInt("conformity"));
+	visitControlPoint.setConformity(data.getLong("conformity"));
 	visitControlPoint.setCommentary(data.getString("commentary"));
 
 	return visitControlPoint;

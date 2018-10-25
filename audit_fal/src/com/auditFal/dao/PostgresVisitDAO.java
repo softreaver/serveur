@@ -11,7 +11,7 @@ import com.auditFal.beans.Visit;
 public class PostgresVisitDAO extends VisitDAO {
 
     // @formatter:off
-    private static final String SQL_CREATE 		= "INSERT INTO visits VALUES (default, null, ?, ?, ?, ?, null, ?, ?, ?, ?, ?)";
+    private static final String SQL_CREATE 		= "INSERT INTO visits VALUES (default, ?, ?, ?, ?, null, ?, ?, ?, ?, ?)"; /* id | title | worktype | workingcompany | dateofvisit | id_users | id_entitledcompanies | id_buildings | id_activities | id_workstations | id_posts */
     private static final String SQL_UPDATE 		= "UPDATE visits SET title = ?, worktype = ?, workingcompany = ?, dateofvisit = ?, id_entitledcompanies = ?, id_buildings = ?, id_activities = ?, id_workstations = ?, id_posts = ? WHERE id = ?";
     private static final String SQL_GET_ALL 		= "SELECT * FROM visits";
     private static final String SQL_FIND_BY_ID		= "SELECT * FROM visits WHERE id = ?";
@@ -27,9 +27,9 @@ public class PostgresVisitDAO extends VisitDAO {
 
 	try {
 	    String title = visit.getTitle();
-	    Integer workType = visit.getWorkType();
 	    String workingCompany = visit.getWorkingCompany();
-	    Integer dateOfVisit = visit.getDateOfVisit();
+	    Long workType = visit.getWorkType();
+	    Long dateOfVisit = visit.getDateOfVisit();
 	    Long idEntitledCompanies = visit.getIdEntitledCompany();
 	    Long idBuildings = visit.getIdBuilding();
 	    Long idActivities = visit.getIdActivity();
@@ -87,18 +87,16 @@ public class PostgresVisitDAO extends VisitDAO {
 
 	try {
 	    String title = visit.getTitle();
-	    Integer workType = visit.getWorkType();
 	    String workingCompany = visit.getWorkingCompany();
-	    Integer dateOfVisit = visit.getDateOfVisit();
+	    Long dateOfVisit = visit.getDateOfVisit();
 	    Long idEntitledCompanies = visit.getIdEntitledCompany();
 	    Long idBuildings = visit.getIdBuilding();
 	    Long idActivities = visit.getIdActivity();
 	    Long idWorkStations = visit.getIdWorkStation();
 	    Long idPosts = visit.getIdPost();
 
-	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_UPDATE, false, title, workType,
-		    workingCompany, dateOfVisit, idEntitledCompanies, idBuildings, idActivities, idWorkStations,
-		    idPosts);
+	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_UPDATE, false, title, workingCompany,
+		    dateOfVisit, idEntitledCompanies, idBuildings, idActivities, idWorkStations, idPosts);
 	    int sqlStatus = preparedStatement.executeUpdate();
 
 	    if (sqlStatus == 0)

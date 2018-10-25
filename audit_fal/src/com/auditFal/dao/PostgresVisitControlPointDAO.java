@@ -51,7 +51,7 @@ public class PostgresVisitControlPointDAO extends VisitControlPointDAO {
 	try {
 	    Long id_controlPoint = visitControlPoint.getIdControlPoints();
 	    Long id_entities = visitControlPoint.getIdEntities();
-	    Integer conformity = visitControlPoint.getConformity();
+	    Long conformity = visitControlPoint.getConformity();
 	    String commentary = visitControlPoint.getCommentary();
 
 	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_CREATE, false, visitId, id_controlPoint,
@@ -75,7 +75,7 @@ public class PostgresVisitControlPointDAO extends VisitControlPointDAO {
 	try {
 	    Long id_controlPoint = visitControlPoint.getIdControlPoints();
 	    Long id_entities = visitControlPoint.getIdEntities();
-	    Integer conformity = visitControlPoint.getConformity();
+	    Long conformity = visitControlPoint.getConformity();
 	    String commentary = visitControlPoint.getCommentary();
 
 	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_UPDATE, false, conformity, null,
