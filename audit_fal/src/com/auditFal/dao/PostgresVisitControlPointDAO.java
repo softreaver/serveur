@@ -12,13 +12,13 @@ public class PostgresVisitControlPointDAO extends VisitControlPointDAO {
 
     // @formatter:off
     private static final String SQL_CREATE 	= "INSERT INTO visits_controlpoints VALUES (?, ?, ?, ?, ?, ?)"; /* id_visits | id_controlpoints | id_entities | conformity | newriskfactor (not used yet) | commentary */
-    private static final String SQL_FIND	= "SELECT * FROM visits_controlpoints WHERE id_visits = ?, id_controlpoints = ?, id_entities = ?";
-    private static final String SQL_UPDATE	= "UPDATE visits_controlpoints SET id WHERE id_visits = ?, id_controlpoints = ?, id_entities = ?";
-    private static final String SQL_DELETE	= "DELETE FROM visits_controlpoints WHERE id_visits = ?, id_controlpoints = ?, id_entities = ?";
+    private static final String SQL_FIND_BY_VISIT_ID	= "SELECT * FROM visits_controlpoints WHERE id_visits = ?";
+    private static final String SQL_UPDATE	= "UPDATE visits_controlpoints SET id WHERE id_visits = ?, id_controlpoints = ?";
+    private static final String SQL_DELETE	= "DELETE FROM visits_controlpoints WHERE id_visits = ?, id_controlpoints = ?";
     // @formatter:on
 
     @Override
-    public ArrayList<VisitControlPoint> find(Connection connection, VisitControlPoint visitControlPoint, Long visitId)
+    public ArrayList<VisitControlPoint> findByVisitId(Connection connection, Long visitId)
 	    throws DAOException {
 	ArrayList<VisitControlPoint> visitControlPoints = new ArrayList<>();
 
@@ -26,11 +26,7 @@ public class PostgresVisitControlPointDAO extends VisitControlPointDAO {
 	ResultSet result = null;
 
 	try {
-	    Long id_controlpoints = visitControlPoint.getIdControlPoints();
-	    Long id_entities = visitControlPoint.getIdEntities();
-
-	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_FIND, false, visitId, id_controlpoints,
-		    id_entities);
+	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_FIND_BY_VISIT_ID, false, visitId);
 	    result = preparedStatement.executeQuery();
 	    while (result.next())
 		visitControlPoints.add(VisitControlPoint.parseResultSet(result));

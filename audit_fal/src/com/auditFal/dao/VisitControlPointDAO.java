@@ -13,8 +13,7 @@ public abstract class VisitControlPointDAO {
     public abstract void update(Connection connection, VisitControlPoint visitControlPoint, Long visitId)
 	    throws DAOException;
 
-    public abstract ArrayList<VisitControlPoint> find(Connection connection, VisitControlPoint visitControlPoint,
-	    Long visitId) throws DAOException;
+    public abstract ArrayList<VisitControlPoint> findByVisitId(Connection connection, Long visitId) throws DAOException;
 
     public abstract void delete(Connection connection, VisitControlPoint visitControlPoint, Long visitId)
 	    throws DAOException;
