@@ -11,7 +11,7 @@ import com.auditFal.beans.Visit;
 public class PostgresVisitDAO extends VisitDAO {
 
     // @formatter:off
-    private static final String SQL_CREATE 		= "INSERT INTO visits VALUES (default, ?, ?, ?, ?, null, ?, ?, ?, ?, ?)"; /* id | title | worktype | workingcompany | dateofvisit | id_users | id_entitledcompanies | id_buildings | id_activities | id_workstations | id_posts */
+    private static final String SQL_CREATE 		= "INSERT INTO visits VALUES (default, ?, ?, ?, ?, null, ?, ?, ?, ?, ?, ?, ?)"; /* id | title | worktype | workingcompany | dateofvisit | id_users | id_entitledcompanies | id_buildings | id_activities | id_workstations | id_posts | ispidigital | pinumber */
     private static final String SQL_UPDATE 		= "UPDATE visits SET title = ?, worktype = ?, workingcompany = ?, dateofvisit = ?, id_entitledcompanies = ?, id_buildings = ?, id_activities = ?, id_workstations = ?, id_posts = ? WHERE id = ?";
     private static final String SQL_GET_ALL 		= "SELECT * FROM visits";
     private static final String SQL_FIND_BY_ID		= "SELECT * FROM visits WHERE id = ?";
@@ -35,10 +35,12 @@ public class PostgresVisitDAO extends VisitDAO {
 	    Long idActivities = visit.getIdActivity();
 	    Long idWorkStations = visit.getIdWorkStation();
 	    Long idPosts = visit.getIdPost();
+	    Boolean isPiDigital = visit.getIsPiDigital();
+	    Long piNumber = visit.getPiNumber();
 
 	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_CREATE, true, title, workType,
 		    workingCompany, dateOfVisit, idEntitledCompanies, idBuildings, idActivities, idWorkStations,
-		    idPosts);
+		    idPosts, isPiDigital, piNumber);
 	    int sqlStatus = preparedStatement.executeUpdate();
 
 	    if (sqlStatus == 0)
@@ -118,7 +120,7 @@ public class PostgresVisitDAO extends VisitDAO {
 
 	try {
 	    if (fromDate == null && toDate == null)
-		throw new DAOException("Les deux paramètre fromDate et toDate sont null, un seul maximum.");
+		return getAll(connection);
 	    else if (fromDate == null)
 		visits = findAfterDate(connection, fromDate);
 	    else if (toDate == null)

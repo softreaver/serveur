@@ -171,11 +171,16 @@ public class Visit {
     public static Visit parseResultSet(ResultSet data) throws SQLException {
 	Visit visit = new Visit();
 
-	visit.setNumber(data.getLong("number"));
+	visit.setNumber(data.getLong("id"));
 	visit.setTitle(data.getString("title"));
 	visit.setWorkingCompany(data.getString("workingcompany"));
 	visit.setWorkType(data.getLong("worktype"));
 	visit.setDateOfVisit(data.getLong("dateofvisit"));
+	visit.setIdActivity(data.getLong("id_activities"));
+	visit.setIdEntitledCompany(data.getLong("id_entitledcompanies"));
+	visit.setIdBuilding(data.getLong("id_buildings"));
+	visit.setIdWorkStation(data.getLong("id_workstations"));
+	visit.setIdPost(data.getLong("id_posts"));
 	visit.setPiNumber(data.getLong("pinumber"));
 	visit.setIsPiDigital(data.getBoolean("ispidigital"));
 
@@ -193,6 +198,21 @@ public class Visit {
 	jsonObject.put("piNumber", visit.getPiNumber());
 	jsonObject.put("isPiDigital", visit.getIsPiDigital());
 	jsonObject.put("workType", visit.getWorkType());
+	jsonObject.put("idEntitledCompany", visit.getIdEntitledCompany());
+	jsonObject.put("idOperator", null);
+	jsonObject.put("idBuilding", visit.getIdBuilding());
+	jsonObject.put("idWorkStation", visit.getIdWorkStation());
+	jsonObject.put("idPost", visit.getIdPost());
+	jsonObject.put("idActivity", visit.getIdActivity());
+
+	JSONArray visitControlPointsList = new JSONArray();
+
+	for (VisitControlPoint visitControlPoint : visit.getControlPointsList())
+	    visitControlPointsList.add(VisitControlPoint.toJsonObject(visitControlPoint));
+
+	jsonObject.put("checkedControlPointsList", visitControlPointsList);
+
+	// TODO jsonObject.put("photosList", ...);
 
 	return jsonObject;
     }

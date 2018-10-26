@@ -1,5 +1,8 @@
 package com.auditFal.beans;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.json.simple.JSONObject;
 
 public class Action {
@@ -53,5 +56,28 @@ public class Action {
 	}
 
 	return null;
+    }
+
+    public static Action parseResultSet(ResultSet data) throws SQLException {
+	Action action = new Action();
+
+	action.setToDo(data.getString("todo"));
+	action.setRealClosingDate(data.getLong("realclosingdate"));
+	action.setWantedClosingDate(data.getLong("wantedclosingdate"));
+	action.setIdResponsableEntity(data.getLong("id_entities"));
+
+	return action;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static JSONObject toJsonObject(Action action) {
+	JSONObject jsonObject = new JSONObject();
+
+	jsonObject.put("toDo", action.getToDo());
+	jsonObject.put("realClosingDate", action.getRealClosingDate());
+	jsonObject.put("wantedClosingDate", action.getWantedClosingDate());
+	jsonObject.put("idResponsableEntity", action.getIdResponsableEntity());
+
+	return jsonObject;
     }
 }

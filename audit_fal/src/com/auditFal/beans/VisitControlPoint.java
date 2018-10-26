@@ -98,4 +98,22 @@ public class VisitControlPoint {
 
 	return visitControlPoint;
     }
+
+    @SuppressWarnings("unchecked")
+    public static JSONObject toJsonObject(VisitControlPoint visitControlPoint) {
+	JSONObject jsonObject = new JSONObject();
+
+	jsonObject.put("id", visitControlPoint.getIdControlPoints());
+	jsonObject.put("idEntity", visitControlPoint.getIdEntities());
+	jsonObject.put("conformity", visitControlPoint.getConformity());
+	jsonObject.put("commentary", visitControlPoint.getCommentary());
+
+	Action action = visitControlPoint.getAction();
+	if (action != null)
+	    jsonObject.put("action", Action.toJsonObject(action));
+	else
+	    jsonObject.put("action", null);
+
+	return jsonObject;
+    }
 }

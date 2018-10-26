@@ -59,22 +59,25 @@ public class VisitForm {
     }
 
     public ArrayList<Visit> getVisits() throws Exception {
-
-	try {
-	    return visitDAO.getAll(connection);
-
-	} catch (DAOException e) {
-	    System.out.println(e.getMessage());
-	    throw new Exception(e);
-	} finally {
-	    DAOUtils.closeConnection(connection);
-	}
+	return getVisits(null, null);
     }
 
     public ArrayList<Visit> getVisits(Long fromDate, Long toDate) throws Exception {
 
+	ArrayList<Visit> visits = new ArrayList<>();
 	try {
-	    return visitDAO.findByDate(connection, fromDate, toDate);
+	    visits = visitDAO.findByDate(connection, fromDate, toDate);
+
+	    // Retrieve visit's control points
+	    for (Visit visit : visits) {
+		visit.setControlPointsList(visitControlPointDAO.findByVisitId(connection, visit.getNumber()));
+
+		// Retrieve the action for each visit's control points
+		for (VisitControlPoint visitControlPoint : visit.getControlPointsList())
+		    visitControlPoint.setAction(actionDAO.find(connection, visitControlPoint));
+	    }
+
+	    return visits;
 	} catch (DAOException e) {
 	    System.out.println(e.getMessage());
 	    throw new Exception(e);

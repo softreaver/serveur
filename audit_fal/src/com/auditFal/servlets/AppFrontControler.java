@@ -15,6 +15,7 @@ import com.auditFal.controlers.GetControlPointsControler;
 import com.auditFal.controlers.GetEntitiesControler;
 import com.auditFal.controlers.GetEntitledCompaniesControler;
 import com.auditFal.controlers.GetPostsControler;
+import com.auditFal.controlers.GetVisitsControler;
 import com.auditFal.controlers.GetWorksituationsControler;
 import com.auditFal.controlers.GetWorkstationsControler;
 import com.auditFal.controlers.SaveActivitiesControler;
@@ -90,6 +91,18 @@ public class AppFrontControler extends HttpServlet {
 
 	/* Use cases */
 	switch (requestName) {
+
+	/*
+	 * /////////////////////////////////////////////////////////////////////
+	 * ////////////////////////////////////////////////////////////
+	 * ||||||||||||||||||| SAVE VISITS
+	 * ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	 */
+	case "saveVisit":
+	    SaveVisitsControler.saveVisit(body, resp, connection, visitDAO, visitControlPointDAO, actionDAO);
+	    break;
 
 	/*
 	 * ////////////////////////////////////////////////////////////
@@ -250,13 +263,13 @@ public class AppFrontControler extends HttpServlet {
 	/*
 	 * /////////////////////////////////////////////////////////////////////
 	 * ////////////////////////////////////////////////////////////
-	 * ||||||||||||||||||| SAVE VISITS
+	 * ||||||||||||||||||| GET VISITS
 	 * ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 */
-	case "saveVisit":
-	    SaveVisitsControler.saveVisit(body, resp, connection, visitDAO, visitControlPointDAO, actionDAO);
+	case "getVisits":
+	    GetVisitsControler.getVisits(body, resp, connection, visitDAO, visitControlPointDAO, actionDAO);
 	    break;
 
 	/*
