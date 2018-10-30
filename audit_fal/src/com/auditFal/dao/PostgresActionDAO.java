@@ -12,9 +12,9 @@ public class PostgresActionDAO extends ActionDAO {
 
     // @formatter:off
     private static final String SQL_CREATE 	= "INSERT INTO actions VALUES (?, ?, ?, ?, ?, ?)"; /* todo | realclosingdate | wantedclosingdate | id_entities | id_controlpoints | id_visits */
-    private static final String SQL_FIND	= "SELECT * FROM actions WHERE id_visits = ? AND id_controlpoints = ? AND id_entities = ?";
-    private static final String SQL_UPDATE	= "UPDATE actions SET id WHERE id_visits = ? AND id_controlpoints = ? AND id_entities = ?";
-    private static final String SQL_DELETE	= "DELETE FROM actions WHERE id_visits = ? AND id_controlpoints = ? AND id_entities = ?";
+    private static final String SQL_FIND	= "SELECT * FROM actions WHERE id_visits = ? AND id_controlpoints = ?";
+    private static final String SQL_UPDATE	= "UPDATE actions SET id WHERE id_visits = ? AND id_controlpoints = ?";
+    private static final String SQL_DELETE	= "DELETE FROM actions WHERE id_visits = ? AND id_controlpoints = ?";
     // @formatter:on
 
     @Override
@@ -75,10 +75,9 @@ public class PostgresActionDAO extends ActionDAO {
 	try {
 	    Long id_visits = visitControlPoint.getIdVisits();
 	    Long id_controlpoints = visitControlPoint.getIdControlPoints();
-	    Long id_entities = visitControlPoint.getIdEntities();
 
-	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_FIND, false, id_visits, id_controlpoints,
-		    id_entities);
+	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_FIND, false, id_visits,
+		    id_controlpoints);
 
 	    result = preparedStatement.executeQuery();
 	    if (result.next())

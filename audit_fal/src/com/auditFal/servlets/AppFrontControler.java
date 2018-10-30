@@ -95,7 +95,7 @@ public class AppFrontControler extends HttpServlet {
 	/*
 	 * /////////////////////////////////////////////////////////////////////
 	 * ////////////////////////////////////////////////////////////
-	 * ||||||||||||||||||| SAVE VISITS
+	 * ||||||||||||||||||| SAVE VISIT
 	 * ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -269,7 +269,7 @@ public class AppFrontControler extends HttpServlet {
 	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	 */
 	case "getVisits":
-	    GetVisitsControler.getVisits(body, resp, connection, visitDAO, visitControlPointDAO, actionDAO);
+	    response = GetVisitsControler.getVisits(body, resp, connection, visitDAO, visitControlPointDAO, actionDAO);
 	    break;
 
 	/*

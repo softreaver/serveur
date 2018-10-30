@@ -48,7 +48,7 @@ public class Action {
 	    Action action = new Action();
 
 	    action.setToDo((String) jsonObject.get("toDo"));
-	    action.setRealClosingDate((Long) jsonObject.get("realColsingDate"));
+	    action.setRealClosingDate((Long) jsonObject.get("realClosingDate"));
 	    action.setWantedClosingDate((Long) jsonObject.get("wantedClosingDate"));
 	    action.setIdResponsableEntity((Long) jsonObject.get("idResponsableEntity"));
 
@@ -63,6 +63,9 @@ public class Action {
 
 	action.setToDo(data.getString("todo"));
 	action.setRealClosingDate(data.getLong("realclosingdate"));
+	if (action.getRealClosingDate().longValue() == 0)
+	    action.setRealClosingDate(null);
+
 	action.setWantedClosingDate(data.getLong("wantedclosingdate"));
 	action.setIdResponsableEntity(data.getLong("id_entities"));
 
