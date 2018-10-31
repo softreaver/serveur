@@ -89,6 +89,7 @@ public class PostgresVisitDAO extends VisitDAO {
 
 	try {
 	    String title = visit.getTitle();
+	    Long workType = visit.getWorkType();
 	    String workingCompany = visit.getWorkingCompany();
 	    Long dateOfVisit = visit.getDateOfVisit();
 	    Long idEntitledCompanies = visit.getIdEntitledCompany();
@@ -97,8 +98,11 @@ public class PostgresVisitDAO extends VisitDAO {
 	    Long idWorkStations = visit.getIdWorkStation();
 	    Long idPosts = visit.getIdPost();
 
-	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_UPDATE, false, title, workingCompany,
-		    dateOfVisit, idEntitledCompanies, idBuildings, idActivities, idWorkStations, idPosts);
+	    Long visitNumber = visit.getNumber();
+
+	    preparedStatement = DAOUtils.initPreparedStatement(connection, SQL_UPDATE, false, title, workType,
+		    workingCompany, dateOfVisit, idEntitledCompanies, idBuildings, idActivities, idWorkStations,
+		    idPosts, visitNumber);
 	    int sqlStatus = preparedStatement.executeUpdate();
 
 	    if (sqlStatus == 0)
