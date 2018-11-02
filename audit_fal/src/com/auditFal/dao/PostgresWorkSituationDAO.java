@@ -27,7 +27,7 @@ public class PostgresWorkSituationDAO extends WorkSituationDAO {
 
 	    return workSituations;
 	} catch (SQLException e) {
-	    throw new DAOException(e);
+	    throw new DAOException(e.getMessage());
 	} finally {
 	    DAOUtils.closeResultSet(result);
 	    DAOUtils.closeStatement(preparedStatement);

@@ -18,6 +18,7 @@ import com.auditFal.controlers.GetPostsControler;
 import com.auditFal.controlers.GetVisitsControler;
 import com.auditFal.controlers.GetWorksituationsControler;
 import com.auditFal.controlers.GetWorkstationsControler;
+import com.auditFal.controlers.RemoveVisitControler;
 import com.auditFal.controlers.SaveActivitiesControler;
 import com.auditFal.controlers.SaveBuildingsControler;
 import com.auditFal.controlers.SaveEntitledCompaniesControler;
@@ -91,6 +92,18 @@ public class AppFrontControler extends HttpServlet {
 
 	/* Use cases */
 	switch (requestName) {
+
+	/*
+	 * /////////////////////////////////////////////////////////////////////
+	 * ////////////////////////////////////////////////////////////
+	 * ||||||||||||||||||| REMOVE VISIT
+	 * ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	 */
+	case "removeVisit":
+	    RemoveVisitControler.removeVisit(body, resp, connection, visitDAO, visitControlPointDAO, actionDAO);
+	    break;
 
 	/*
 	 * /////////////////////////////////////////////////////////////////////

@@ -14,6 +14,7 @@ public abstract class ActionDAO {
 
     public abstract Action find(Connection connection, VisitControlPoint visitControlPoint) throws DAOException;
 
-    public abstract void delete(Connection connection, Action action, Long controlPointId, Long visitId)
-	    throws DAOException;
+    public abstract void deleteByVisitNumber(Connection connection, Long visitNumber) throws DAOException;
+
+    public abstract void delete(Connection connection, Long controlPointsId, Long visitNumber) throws DAOException;
 }

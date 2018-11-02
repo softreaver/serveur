@@ -75,7 +75,7 @@ public class PostgresDAOFactory extends DAOFactory {
 	try {
 	    return DriverManager.getConnection(url, username, password);
 	} catch (SQLException e) {
-	    throw new DAOFactoryException(e);
+	    throw new DAOFactoryException(e.getMessage());
 	}
     }
 

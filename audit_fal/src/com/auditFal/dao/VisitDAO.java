@@ -16,4 +16,6 @@ public abstract class VisitDAO {
     public abstract void update(Connection connection, Visit visit) throws DAOException;
 
     public abstract ArrayList<Visit> findByDate(Connection connection, Long fromDate, Long toDate) throws DAOException;
+
+    public abstract void deleteByVisitNumber(Connection connection, Long visitNumber) throws DAOException;
 }

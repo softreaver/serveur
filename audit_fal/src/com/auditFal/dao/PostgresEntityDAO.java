@@ -26,7 +26,7 @@ public class PostgresEntityDAO extends EntityDAO {
 	    else
 		return null;
 	} catch (SQLException e) {
-	    throw new DAOException(e);
+	    throw new DAOException(e.getMessage());
 	} finally {
 	    DAOUtils.closeResultSet(result);
 	    DAOUtils.closeStatement(preparedStatement);
@@ -46,7 +46,7 @@ public class PostgresEntityDAO extends EntityDAO {
 	    else
 		return null;
 	} catch (SQLException e) {
-	    throw new DAOException(e);
+	    throw new DAOException(e.getMessage());
 	} finally {
 	    DAOUtils.closeResultSet(result);
 	    DAOUtils.closeStatement(preparedStatement);
@@ -68,7 +68,7 @@ public class PostgresEntityDAO extends EntityDAO {
 
 	    return entities;
 	} catch (SQLException e) {
-	    throw new DAOException(e);
+	    throw new DAOException(e.getMessage());
 	} finally {
 	    DAOUtils.closeResultSet(result);
 	    DAOUtils.closeStatement(preparedStatement);
