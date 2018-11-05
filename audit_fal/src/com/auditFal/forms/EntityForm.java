@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.auditFal.beans.Entity;
 import com.auditFal.dao.DAOException;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.dao.DAOUtils;
 import com.auditFal.dao.EntityDAO;
 
@@ -12,10 +13,10 @@ public class EntityForm {
     private EntityDAO entityDAO;
     private Connection connection;
 
-    public EntityForm(Connection connection, EntityDAO entityDAO) throws Exception {
-	this.entityDAO = entityDAO;
-	this.connection = connection;
-	this.connection.setAutoCommit(false);
+    public EntityForm(DAOFactory daoFactory) throws Exception {
+	entityDAO = daoFactory.getEntityDAO();
+	connection = daoFactory.getConnection();
+	connection.setAutoCommit(false);
     }
 
     public ArrayList<Entity> getEntities() throws Exception {

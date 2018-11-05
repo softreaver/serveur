@@ -1,7 +1,6 @@
 package com.auditFal.controlers;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,17 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 
 import com.auditFal.beans.Post;
-import com.auditFal.dao.PostDAO;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.forms.PostForm;
 
 public class GetPostsControler {
     @SuppressWarnings("unchecked")
-    public static String getPosts(HttpServletResponse resp, Connection connection, PostDAO postDAO) {
+    public static String getPosts(HttpServletResponse resp, DAOFactory daoFactory) {
 	ArrayList<Post> allPosts;
+	resp.setContentType("application/json; charset=utf-8");
 
 	try {
 	    PrintWriter writer = resp.getWriter();
-	    PostForm postForm = new PostForm(connection, postDAO);
+	    PostForm postForm = new PostForm(daoFactory);
 	    allPosts = postForm.getPosts();
 
 	    /*

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.auditFal.beans.Pair;
 import com.auditFal.beans.WorkStation;
 import com.auditFal.dao.DAOException;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.dao.DAOUtils;
 import com.auditFal.dao.WorkStationDAO;
 
@@ -14,10 +15,10 @@ public class WorkStationForm {
     private WorkStationDAO workStationDAO;
     private Connection connection;
 
-    public WorkStationForm(Connection connection, WorkStationDAO workStationDAO) throws Exception {
-	this.workStationDAO = workStationDAO;
-	this.connection = connection;
-	this.connection.setAutoCommit(false);
+    public WorkStationForm(DAOFactory daoFactory) throws Exception {
+	workStationDAO = daoFactory.getWorkStationDAO();
+	connection = daoFactory.getConnection();
+	connection.setAutoCommit(false);
     }
 
     public ArrayList<Pair<Long>> saveWorkStations(ArrayList<WorkStation> workStations) throws Exception {

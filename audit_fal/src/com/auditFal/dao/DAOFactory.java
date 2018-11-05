@@ -10,6 +10,22 @@ public abstract class DAOFactory {
     protected static final String PROPERTY_NOM_UTILISATEUR = "nomutilisateur";
     protected static final String PROPERTY_MOT_DE_PASSE = "motdepasse";
 
+ // @formatter:off
+    protected static DAOFactory instance 		= null;
+
+    protected BuildingDAO buildingDAO 			= null;
+    protected PostDAO postDAO 				= null;
+    protected WorkSituationDAO workSituationDAO 	= null;
+    protected ControlPointDAO controlPointDAO 		= null;
+    protected EntityDAO entityDAO 			= null;
+    protected ActivityDAO activityDAO 			= null;
+    protected VisitDAO visitDAO 			= null;
+    protected WorkStationDAO workStationDAO 		= null;
+    protected ActionDAO actionDAO 			= null;
+    protected EntitledCompanyDAO entitledCompanyDAO 	= null;
+    protected VisitControlPointDAO visitControlPointDAO	= null;
+    // @formatter:on
+
     protected String url;
     protected String username;
     protected String password;

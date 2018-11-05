@@ -1,7 +1,6 @@
 package com.auditFal.controlers;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,17 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 
 import com.auditFal.beans.Building;
-import com.auditFal.dao.BuildingDAO;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.forms.BuildingForm;
 
 public class GetBuildingsControler {
     @SuppressWarnings("unchecked")
-    public static String getBuildings(HttpServletResponse resp, Connection connection, BuildingDAO buildingDAO) {
+    public static String getBuildings(HttpServletResponse resp, DAOFactory daoFactory) {
 	ArrayList<Building> allBuildings;
+	resp.setContentType("application/json; charset=utf-8");
 
 	try {
 	    PrintWriter writer = resp.getWriter();
-	    BuildingForm buildingForm = new BuildingForm(connection, buildingDAO);
+	    BuildingForm buildingForm = new BuildingForm(daoFactory);
 	    allBuildings = buildingForm.getBuildings();
 
 	    /*

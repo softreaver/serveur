@@ -7,16 +7,17 @@ import com.auditFal.beans.Building;
 import com.auditFal.beans.Pair;
 import com.auditFal.dao.BuildingDAO;
 import com.auditFal.dao.DAOException;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.dao.DAOUtils;
 
 public class BuildingForm {
     private BuildingDAO buildingDAO;
     private Connection connection;
 
-    public BuildingForm(Connection connection, BuildingDAO buildingDAO) throws Exception {
-	this.buildingDAO = buildingDAO;
-	this.connection = connection;
-	this.connection.setAutoCommit(false);
+    public BuildingForm(DAOFactory daoFactory) throws Exception {
+	buildingDAO = daoFactory.getBuildingDAO();
+	connection = daoFactory.getConnection();
+	connection.setAutoCommit(false);
     }
 
     public ArrayList<Pair<Long>> saveBuildings(ArrayList<Building> buildings) throws Exception {

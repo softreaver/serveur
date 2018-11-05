@@ -1,7 +1,6 @@
 package com.auditFal.controlers;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
@@ -11,21 +10,19 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.auditFal.beans.Visit;
-import com.auditFal.dao.ActionDAO;
-import com.auditFal.dao.VisitControlPointDAO;
-import com.auditFal.dao.VisitDAO;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.forms.VisitForm;
 
 public class GetVisitsControler {
     @SuppressWarnings("unchecked")
-    public static String getVisits(String body, HttpServletResponse resp, Connection connection, VisitDAO visitDAO,
-	    VisitControlPointDAO visitControlPointDAO, ActionDAO actionDAO) {
+    public static String getVisits(String body, HttpServletResponse resp, DAOFactory daoFactory) {
 
 	ArrayList<Visit> allVisits;
+	resp.setContentType("application/json; charset=utf-8");
 
 	try {
 	    PrintWriter writer = resp.getWriter();
-	    VisitForm visitForm = new VisitForm(connection, visitDAO, visitControlPointDAO, actionDAO);
+	    VisitForm visitForm = new VisitForm(daoFactory);
 	    Long fromDate = null;
 	    Long toDate = null;
 

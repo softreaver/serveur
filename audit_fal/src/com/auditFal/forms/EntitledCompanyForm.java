@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.auditFal.beans.EntitledCompany;
 import com.auditFal.beans.Pair;
 import com.auditFal.dao.DAOException;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.dao.DAOUtils;
 import com.auditFal.dao.EntitledCompanyDAO;
 
@@ -13,10 +14,10 @@ public class EntitledCompanyForm {
     private EntitledCompanyDAO entitledCompanyDAO;
     private Connection connection;
 
-    public EntitledCompanyForm(Connection connection, EntitledCompanyDAO entitledCompanyDAO) throws Exception {
-	this.entitledCompanyDAO = entitledCompanyDAO;
-	this.connection = connection;
-	this.connection.setAutoCommit(false);
+    public EntitledCompanyForm(DAOFactory daoFactory) throws Exception {
+	entitledCompanyDAO = daoFactory.getEntitledCompanyDAO();
+	connection = daoFactory.getConnection();
+	connection.setAutoCommit(false);
     }
 
     public ArrayList<Pair<Long>> saveEntitledCompanies(ArrayList<EntitledCompany> entitledCompanies) throws Exception {

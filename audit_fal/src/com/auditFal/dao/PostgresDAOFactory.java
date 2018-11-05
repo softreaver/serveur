@@ -9,22 +9,6 @@ import java.util.Properties;
 
 public class PostgresDAOFactory extends DAOFactory {
 
-    // @formatter:off
-    private static PostgresDAOFactory instance 		= null;
-
-    private BuildingDAO buildingDAO 			= null;
-    private PostDAO postDAO 				= null;
-    private WorkSituationDAO workSituationDAO 		= null;
-    private ControlPointDAO controlPointDAO 		= null;
-    private EntityDAO entityDAO 			= null;
-    private ActivityDAO activityDAO 			= null;
-    private VisitDAO visitDAO 				= null;
-    private WorkStationDAO workStationDAO 		= null;
-    private ActionDAO actionDAO 			= null;
-    private EntitledCompanyDAO entitledCompanyDAO 	= null;
-    private VisitControlPointDAO visitControlPointDAO	= null;
-    // @formatter:on
-
     private PostgresDAOFactory(String url, String username, String password) {
 	super(url, username, password);
     }

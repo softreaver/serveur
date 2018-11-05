@@ -8,6 +8,7 @@ import com.auditFal.beans.Visit;
 import com.auditFal.beans.VisitControlPoint;
 import com.auditFal.dao.ActionDAO;
 import com.auditFal.dao.DAOException;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.dao.DAOUtils;
 import com.auditFal.dao.VisitControlPointDAO;
 import com.auditFal.dao.VisitDAO;
@@ -18,13 +19,12 @@ public class VisitForm {
     private ActionDAO actionDAO;
     private Connection connection;
 
-    public VisitForm(Connection connection, VisitDAO visitDAO, VisitControlPointDAO visitControlPointDAO,
-	    ActionDAO actionDAO) throws Exception {
-	this.visitDAO = visitDAO;
-	this.visitControlPointDAO = visitControlPointDAO;
-	this.actionDAO = actionDAO;
-	this.connection = connection;
-	this.connection.setAutoCommit(false);
+    public VisitForm(DAOFactory daoFactory) throws Exception {
+	visitDAO = daoFactory.getVisitDAO();
+	visitControlPointDAO = daoFactory.getVisitControlPointDAO();
+	actionDAO = daoFactory.getActionDAO();
+	connection = daoFactory.getConnection();
+	connection.setAutoCommit(false);
     }
 
     public void saveVisit(Visit visit) throws Exception {

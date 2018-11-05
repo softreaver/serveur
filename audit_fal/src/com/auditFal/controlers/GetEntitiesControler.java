@@ -1,7 +1,6 @@
 package com.auditFal.controlers;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,17 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 
 import com.auditFal.beans.Entity;
-import com.auditFal.dao.EntityDAO;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.forms.EntityForm;
 
 public class GetEntitiesControler {
     @SuppressWarnings("unchecked")
-    public static String getEntities(HttpServletResponse resp, Connection connection, EntityDAO entityDAO) {
+    public static String getEntities(HttpServletResponse resp, DAOFactory daoFactory) {
 	ArrayList<Entity> allEntities;
+	resp.setContentType("application/json; charset=utf-8");
 
 	try {
 	    PrintWriter writer = resp.getWriter();
-	    EntityForm entityForm = new EntityForm(connection, entityDAO);
+	    EntityForm entityForm = new EntityForm(daoFactory);
 	    allEntities = entityForm.getEntities();
 
 	    /*

@@ -6,16 +6,17 @@ import java.util.ArrayList;
 import com.auditFal.beans.ControlPoint;
 import com.auditFal.dao.ControlPointDAO;
 import com.auditFal.dao.DAOException;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.dao.DAOUtils;
 
 public class ControlPointForm {
     private ControlPointDAO controlPointDAO;
     private Connection connection;
 
-    public ControlPointForm(Connection connection, ControlPointDAO controlPointDAO) throws Exception {
-	this.controlPointDAO = controlPointDAO;
-	this.connection = connection;
-	this.connection.setAutoCommit(false);
+    public ControlPointForm(DAOFactory daoFactory) throws Exception {
+	controlPointDAO = daoFactory.getControlPointDAO();
+	connection = daoFactory.getConnection();
+	connection.setAutoCommit(false);
     }
 
     public ArrayList<ControlPoint> getControlPoints() throws Exception {

@@ -1,7 +1,6 @@
 package com.auditFal.controlers;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,17 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 
 import com.auditFal.beans.Activity;
-import com.auditFal.dao.ActivityDAO;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.forms.ActivityForm;
 
 public class GetActivitiesControler {
     @SuppressWarnings("unchecked")
-    public static String getActivities(HttpServletResponse resp, Connection connection, ActivityDAO activityDAO) {
+    public static String getActivities(HttpServletResponse resp, DAOFactory daoFactory) {
 	ArrayList<Activity> allActivities;
+	resp.setContentType("application/json; charset=utf-8");
 
 	try {
 	    PrintWriter writer = resp.getWriter();
-	    ActivityForm activityForm = new ActivityForm(connection, activityDAO);
+	    ActivityForm activityForm = new ActivityForm(daoFactory);
 	    allActivities = activityForm.getActivities();
 
 	    /*

@@ -1,7 +1,6 @@
 package com.auditFal.controlers;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,18 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 
 import com.auditFal.beans.WorkSituation;
-import com.auditFal.dao.WorkSituationDAO;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.forms.WorkSituationsForm;
 
 public class GetWorksituationsControler {
     @SuppressWarnings("unchecked")
-    public static String getWorksituations(HttpServletResponse resp, Connection connection,
-	    WorkSituationDAO workSituationDAO) {
+    public static String getWorksituations(HttpServletResponse resp, DAOFactory daoFactory) {
 	ArrayList<WorkSituation> allWorkSituations;
+	resp.setContentType("application/json; charset=utf-8");
 
 	try {
 	    PrintWriter writer = resp.getWriter();
-	    WorkSituationsForm workSituationsForm = new WorkSituationsForm(connection, workSituationDAO);
+	    WorkSituationsForm workSituationsForm = new WorkSituationsForm(daoFactory);
 	    allWorkSituations = workSituationsForm.getWorkSituations();
 
 	    /*

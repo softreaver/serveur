@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.auditFal.beans.Pair;
 import com.auditFal.beans.Post;
 import com.auditFal.dao.DAOException;
+import com.auditFal.dao.DAOFactory;
 import com.auditFal.dao.DAOUtils;
 import com.auditFal.dao.PostDAO;
 
@@ -14,10 +15,10 @@ public class PostForm {
     private PostDAO postDAO;
     private Connection connection;
 
-    public PostForm(Connection connection, PostDAO postDAO) throws Exception {
-	this.postDAO = postDAO;
-	this.connection = connection;
-	this.connection.setAutoCommit(false);
+    public PostForm(DAOFactory daoFactory) throws Exception {
+	postDAO = daoFactory.getPostDAO();
+	connection = daoFactory.getConnection();
+	connection.setAutoCommit(false);
     }
 
     public ArrayList<Pair<Long>> savePosts(ArrayList<Post> posts) throws Exception {
